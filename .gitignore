@@ -1,0 +1,53 @@
+# Maven / Gradle build dirs
+/target/
+/build/
+
+# Wrapper jars / scripts
+/.mvn/wrapper/maven-wrapper.jar
+/mvnw
+/mvnw.cmd
+
+# Java / Eclipse / STS
+.classpath
+.project
+.settings/
+.apt_generated
+.springBeans
+
+# IntelliJ
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# VS Code
+.vscode/
+
+# NetBeans
+/nbproject/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs and temp
+*.log
+
+# Spring Boot dev config
+application.yml      # your real local file; commit application-dev.sample.yml instead
+*.key               # any private keys
+
+# Environment files
+.env
+.env.local
+
+# Docker / Postgres data
+**/pgdata/
+docker-compose.override.yml
+
+# Secrets
+secrets.yml

@@ -1,0 +1,18 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5433/fantasyicldb
+    username: fantasyicl_backend
+    password: icl@2025
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+app:
+  jwtSecret: jwtSe3retfdfdfdsifdfildsifjdilsfjldisjfidljfildfldisjlifsdkfadosfiadsjfiladjsfijdist45w5wsdfdslifjdifjdsijfidsljfidlidfjidlsfjisdjfilsdjalifjdlifj
+  jwtExpirationMs: 900000       # 15 minutes
+  refreshTokenExpirationMs: 604800000  # 7 days

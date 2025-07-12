@@ -1,0 +1,13 @@
+package com.cricMaster.fantasyICL_backend;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class FantasyIclBackendApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(FantasyIclBackendApplication.class, args);
+	}
+
+}
