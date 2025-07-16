@@ -2,19 +2,24 @@ package com.cricMaster.fantasyICL_backend.model;
 
 import jakarta.persistence.*;
 
+import java.math.BigDecimal;
+
 @Entity
-@Table(name = "players")
+@Table(name = "player")
 public class Player {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name="name", nullable = false)
-    private String playerName;
+    private String name;
 
-    @Column(name = "credit_score", nullable = false)
-    private String creditScore;
-
+    @Column(name="credit_score",
+            nullable=false,
+            precision=3,
+            scale=1,
+            columnDefinition="NUMERIC(3,1)")
+    private BigDecimal creditScore;
 
     @OneToOne(mappedBy = "player", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private BattingStats battingStats;
@@ -26,18 +31,25 @@ public class Player {
 
     public Player() {}
 
-    public Player(Long id, String playerName, String creditScore, BattingStats battingStats, BowlingStats bowlingStats) {
+    public Player(Long id, String name, BigDecimal creditScore, BattingStats battingStats, BowlingStats bowlingStats) {
         this.id = id;
-        this.playerName = playerName;
+        this.name = name;
         this.creditScore = creditScore;
         this.battingStats = battingStats;
         this.bowlingStats = bowlingStats;
     }
 
     public Long getId() { return id; }
-    public String getPlayerName() { return playerName; }
-    public void setPlayerName(String playerName) { this.playerName = playerName; }
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
 
+    public BigDecimal getCreditScore() {
+        return creditScore;
+    }
+
+    public void setCreditScore(BigDecimal creditScore) {
+        this.creditScore = creditScore;
+    }
 
     public BattingStats getBattingStats() { return battingStats; }
     public void setBattingStats(BattingStats battingStats) {

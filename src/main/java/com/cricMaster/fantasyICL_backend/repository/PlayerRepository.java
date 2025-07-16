@@ -14,7 +14,7 @@ public interface PlayerRepository extends JpaRepository<Player, Long> {
     // --- Batting queries ---
     @Query("""
     SELECT new com.cricMaster.fantasyICL_backend.dto.PlayerDto(
-      p.id, p.playerName, p.avatarUrl,
+      p.id, p.name, p.creditScore,
       bs.matches, bs.runs, NULL,
       bs.average, NULL,
       bs.strikeRate
@@ -27,7 +27,7 @@ public interface PlayerRepository extends JpaRepository<Player, Long> {
 
     @Query("""
     SELECT new com.cricMaster.fantasyICL_backend.dto.PlayerDto(
-      p.id, p.playerName, p.avatarUrl,
+      p.id, p.name, p.creditScore,
       bs.matches, bs.runs, NULL,
       bs.average, NULL,
       bs.strikeRate
@@ -40,7 +40,7 @@ public interface PlayerRepository extends JpaRepository<Player, Long> {
 
     @Query("""
     SELECT new com.cricMaster.fantasyICL_backend.dto.PlayerDto(
-      p.id, p.playerName, p.avatarUrl,
+      p.id, p.name, p.creditScore,
       bs.matches, bs.runs, NULL,
       bs.average, NULL,
       bs.strikeRate
@@ -54,7 +54,7 @@ public interface PlayerRepository extends JpaRepository<Player, Long> {
     // --- Bowling queries ---
     @Query("""
     SELECT new com.cricMaster.fantasyICL_backend.dto.PlayerDto(
-      p.id, p.playerName, p.avatarUrl,
+      p.id, p.name, p.creditScore,
       bw.matches, NULL, bw.wickets,
       bw.average, bw.economy,
       bw.strikeRate
@@ -67,7 +67,7 @@ public interface PlayerRepository extends JpaRepository<Player, Long> {
 
     @Query("""
     SELECT new com.cricMaster.fantasyICL_backend.dto.PlayerDto(
-      p.id, p.playerName, p.avatarUrl,
+      p.id, p.name, p.creditScore,
       bw.matches, NULL, bw.wickets,
       bw.average, bw.economy,
       bw.strikeRate
@@ -80,7 +80,7 @@ public interface PlayerRepository extends JpaRepository<Player, Long> {
 
     @Query("""
     SELECT new com.cricMaster.fantasyICL_backend.dto.PlayerDto(
-      p.id, p.playerName, p.avatarUrl,
+      p.id, p.name, p.creditScore,
       bw.matches, NULL, bw.wickets,
       bw.average, bw.economy,
       bw.strikeRate
@@ -93,7 +93,7 @@ public interface PlayerRepository extends JpaRepository<Player, Long> {
 
     @Query("""
     SELECT new com.cricMaster.fantasyICL_backend.dto.PlayerDto(
-      p.id, p.playerName, p.avatarUrl,
+      p.id, p.name, p.creditScore,
       bw.matches, NULL, bw.wickets,
       bw.average, bw.economy,
       bw.strikeRate

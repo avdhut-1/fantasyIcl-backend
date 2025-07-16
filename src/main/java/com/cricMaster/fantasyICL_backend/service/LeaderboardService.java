@@ -20,9 +20,13 @@ public class LeaderboardService {
 
     @Cacheable(cacheNames = "battingLeader", key = "#filter")
     public List<PlayerDto> getBattingLeaderboard(String filter) {
+        System.out.println("Inside gettingBattingLeaderboard");
+        List<PlayerDto> topRuns = repo.findTopBattingByRuns();
+        System.out.println("Found " + topRuns.size() + " rows");
         if (!StringUtils.hasText(filter)) {
             filter = "Most Runs";
         }
+        System.out.println("Filter: " + filter);
         return switch (filter) {
             case "Most Runs"       -> repo.findTopBattingByRuns();
             case "Average"         -> repo.findTopBattingByAverage();
