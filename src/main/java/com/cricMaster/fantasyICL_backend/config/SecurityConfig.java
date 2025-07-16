@@ -20,7 +20,7 @@ import com.cricMaster.fantasyICL_backend.security.JwtAuthenticationFilter;
 import com.cricMaster.fantasyICL_backend.service.AuthService;
 
 @Configuration
-@EnableWebSecurity(debug = true)
+@EnableWebSecurity(debug = false)
 public class SecurityConfig {
 
     private final AuthenticationEntryPoint   unauthorizedHandler;
