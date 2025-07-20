@@ -2,6 +2,7 @@ package com.cricMaster.fantasyICL_backend.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -9,6 +10,7 @@ import java.time.Instant;
 
 @Data
 @Entity
+@EntityListeners(AuditingEntityListener.class)
 @Table(name = "contests",
         uniqueConstraints = @UniqueConstraint(
                 name = "uq_contest_slot",
@@ -43,24 +45,12 @@ public class Contest {
     @Column(nullable = false, length = 100)
     private String venue;
 
-    /** These timestamp columns are maintained by DB triggers. */
     @Column(name = "created_at", nullable = false, updatable = false)
     private Instant createdAt;
 
     @Column(name = "updated_at", nullable = false)
     private Instant updatedAt;
 
-    @PrePersist
-    protected void onCreate() {
-        Instant now = Instant.now();
-        this.createdAt = now;
-        this.updatedAt = now;
-    }
-
-    @PreUpdate
-    protected void onUpdate() {
-        this.updatedAt = Instant.now();
-    }
 
     public Contest(Long id, Tournament tournament, Team teamA, Team teamB, LocalDate matchDate, LocalTime matchTime, String venue, Instant createdAt, Instant updatedAt) {
         this.id = id;
