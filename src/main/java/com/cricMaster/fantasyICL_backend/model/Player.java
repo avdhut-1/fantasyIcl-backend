@@ -31,6 +31,10 @@ public class Player {
 
     public Player() {}
 
+    public Player(Long id) {
+        this.id = id;
+    }
+
     public Player(Long id, String name, BigDecimal creditScore, BattingStats battingStats, BowlingStats bowlingStats) {
         this.id = id;
         this.name = name;
