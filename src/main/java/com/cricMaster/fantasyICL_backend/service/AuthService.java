@@ -2,6 +2,7 @@ package com.cricMaster.fantasyICL_backend.service;
 
 import com.cricMaster.fantasyICL_backend.dto.*;
 import com.cricMaster.fantasyICL_backend.model.User;
+import com.cricMaster.fantasyICL_backend.security.UserPrincipal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -59,19 +60,10 @@ public class AuthService implements UserDetailsService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String username)
-            throws UsernameNotFoundException {
-        User u = userRepo.findByUsername(username)
-                .orElseThrow(() -> new UsernameNotFoundException("Not found"));
-        return org.springframework.security.core.userdetails.User
-                .withUsername(u.getUsername())
-                .password(u.getPassword())
-                .authorities("USER")
-                .accountExpired(false)
-                .accountLocked(false)
-                .credentialsExpired(false)
-                .disabled(!u.getIsActive())
-                .build();
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        User user = userRepo.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("No user: " + username));
+        return UserPrincipal.create(user);
     }
 
        private AuthenticationManager authenticationManager() {
