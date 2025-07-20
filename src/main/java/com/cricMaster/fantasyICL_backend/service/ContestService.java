@@ -1,10 +1,10 @@
 package com.cricMaster.fantasyICL_backend.service;
 
-import com.cricMaster.fantasyICL_backend.dto.ContestRequest;
-import com.cricMaster.fantasyICL_backend.dto.ContestResponse;
+import com.cricMaster.fantasyICL_backend.dto.*;
 import com.cricMaster.fantasyICL_backend.exception.BadRequestException;
 import com.cricMaster.fantasyICL_backend.exception.NotFoundException;
 import com.cricMaster.fantasyICL_backend.model.Contest;
+import com.cricMaster.fantasyICL_backend.model.Player;
 import com.cricMaster.fantasyICL_backend.model.Team;
 import com.cricMaster.fantasyICL_backend.model.Tournament;
 import com.cricMaster.fantasyICL_backend.repository.ContestRepository;
@@ -96,8 +96,7 @@ public class ContestService {
     public ContestResponse updateContestDetails(Long tournamentId,
                                   Long contestId,
                                   ContestRequest req) {
-//        log.info("Updating contest {} for tournament {}", contestId, tournamentId);
-        // reuse create‐style validation
+
         Contest existing = contests.findById(contestId)
                 .filter(ct -> ct.getTournament().getId().equals(tournamentId))
                 .orElseThrow(() -> new NotFoundException("Contest not found"));
@@ -125,10 +124,45 @@ public class ContestService {
 
     @Transactional
     public void deleteContestDetails(Long tournamentId, Long contestId) {
-//        log.info("Deleting contest {} for tournament {}", contestId, tournamentId);
         Contest c = contests.findById(contestId)
                 .filter(ct -> ct.getTournament().getId().equals(tournamentId))
                 .orElseThrow(() -> new NotFoundException("Contest not found"));
         contests.delete(c);
     }
+
+    @Transactional(readOnly = true)
+    public AvailablePlayersResponse getAvailablePlayers(Long contestId) {
+        System.out.println("[ContestService] getAvailablePlayers() → contestId=" + contestId);
+        Contest contest = contests.findById(contestId)
+                .orElseThrow(() -> new NotFoundException("Contest not found: " + contestId));
+
+        Team a = contest.getTeamA();
+        Team b = contest.getTeamB();
+        System.out.println("[ContestService]  TeamA=" + a.getId() + "  TeamB=" + b.getId());
+
+        var playersA = a.getRoster().stream()
+                .map(rp -> toDto(rp.getPlayer()))
+                .collect(Collectors.toList());
+
+        var playersB = b.getRoster().stream()
+                .map(rp -> toDto(rp.getPlayer()))
+                .collect(Collectors.toList());
+
+        System.out.println("[ContestService]  Found " + playersA.size() +
+                " for A, " + playersB.size() + " for B");
+
+        var tA = new SimpleTeamDto(a.getId(), a.getName(), playersA);
+        var tB = new SimpleTeamDto(b.getId(), b.getName(), playersB);
+        return new AvailablePlayersResponse(contestId, tA, tB);
+    }
+
+    private PlayerSelectionDto toDto(Player p) {
+        return new PlayerSelectionDto(
+                p.getId(),
+                p.getName(),
+                "avatarURL",
+                p.getCreditScore()
+        );
+    }
+
 }

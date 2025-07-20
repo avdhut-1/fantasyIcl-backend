@@ -1,6 +1,7 @@
 // src/main/java/com/cricMaster/fantasyICL_backend/controller/AdminContestController.java
 package com.cricMaster.fantasyICL_backend.controller;
 
+import com.cricMaster.fantasyICL_backend.dto.AvailablePlayersResponse;
 import com.cricMaster.fantasyICL_backend.dto.ContestRequest;
 import com.cricMaster.fantasyICL_backend.dto.ContestResponse;
 import com.cricMaster.fantasyICL_backend.service.ContestService;
@@ -61,6 +62,16 @@ public class AdminContestController {
             @PathVariable("contestId") Long contestId
     ) {
         contestService.deleteContestDetails(tournamentId, contestId);
+    }
+
+    @GetMapping("/{contestId}/players")
+    public ResponseEntity<AvailablePlayersResponse> getAvailablePlayers(
+            @PathVariable Long contestId
+    ) {
+        System.out.println("[ContestController] GET /api/contests/" + contestId + "/players");
+        var resp = contestService.getAvailablePlayers(contestId);
+        System.out.println("[ContestController]  returning response for contest " + contestId);
+        return ResponseEntity.ok(resp);
     }
 }
 
