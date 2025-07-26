@@ -2,6 +2,7 @@ package com.cricMaster.fantasyICL_backend.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.Instant;
@@ -25,6 +26,7 @@ public class FantasyTeamPlayer {
     @JoinColumn(name="player_id", foreignKey=@ForeignKey(name="fk_ftp_player"))
     private Player player;
 
+    @CreatedDate
     @Column(name="selected_at", nullable=false,
             insertable=false, updatable=false) // assume DB default NOW()
     private Instant selectedAt;

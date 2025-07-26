@@ -2,6 +2,8 @@ package com.cricMaster.fantasyICL_backend.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.Instant;
@@ -41,10 +43,12 @@ public class FantasyTeam {
     )
     private Set<FantasyTeamPlayer> players = new HashSet<>();
 
+    @CreatedDate
     @Column(name="created_at", nullable=false, updatable=false,
             insertable = false)   // assume DB default NOW()
     private Instant createdAt;
 
+    @LastModifiedDate
     @Column(name="updated_at", nullable=false,
             insertable = false)  // assume DB trigger
     private Instant updatedAt;

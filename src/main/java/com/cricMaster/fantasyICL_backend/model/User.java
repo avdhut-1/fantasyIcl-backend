@@ -2,12 +2,16 @@ package com.cricMaster.fantasyICL_backend.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.Instant;
 
 @Data
 @Entity
 @Table(name = "users")
+@EntityListeners(AuditingEntityListener.class)
 public class User {
 
     @Id
@@ -34,9 +38,11 @@ public class User {
     @Column(name = "is_active", nullable = false)
     private Boolean isActive = true;
 
+    @CreatedDate
     @Column(name = "created_at", nullable = false)
     private Instant createdAt = Instant.now();
 
+    @LastModifiedDate
     @Column(name = "updated_at", nullable = false)
     private Instant updatedAt = Instant.now();
 
