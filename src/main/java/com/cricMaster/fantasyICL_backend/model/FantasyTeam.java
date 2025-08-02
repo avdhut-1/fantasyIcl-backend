@@ -43,23 +43,34 @@ public class FantasyTeam {
     )
     private Set<FantasyTeamPlayer> players = new HashSet<>();
 
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "captain_player_id", nullable = false,
+            foreignKey = @ForeignKey(name = "fk_fantasy_team_captain"))
+    private Player captain;
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "vice_captain_player_id", nullable = false,
+            foreignKey = @ForeignKey(name = "fk_fantasy_team_vice_captain"))
+    private Player viceCaptain;
+
+
     @CreatedDate
-    @Column(name="created_at", nullable=false, updatable=false,
-            insertable = false)   // assume DB default NOW()
+    @Column(name="created_at", nullable=false, updatable=false)
     private Instant createdAt;
 
     @LastModifiedDate
-    @Column(name="updated_at", nullable=false,
-            insertable = false)  // assume DB trigger
+    @Column(name="updated_at", nullable=false)
     private Instant updatedAt;
 
     public FantasyTeam() {}
 
-    public FantasyTeam(Long id, Contest contest, Long userId, Set<FantasyTeamPlayer> players, Instant createdAt, Instant updatedAt) {
+    public FantasyTeam(Long id, Contest contest, Long userId, Set<FantasyTeamPlayer> players, Player captain, Player viceCaptain, Instant createdAt, Instant updatedAt) {
         this.id = id;
         this.contest = contest;
         this.userId = userId;
         this.players = players;
+        this.captain = captain;
+        this.viceCaptain = viceCaptain;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
     }
@@ -110,6 +121,22 @@ public class FantasyTeam {
 
     public void setUpdatedAt(Instant updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public Player getCaptain() {
+        return captain;
+    }
+
+    public void setCaptain(Player captain) {
+        this.captain = captain;
+    }
+
+    public Player getViceCaptain() {
+        return viceCaptain;
+    }
+
+    public void setViceCaptain(Player viceCaptain) {
+        this.viceCaptain = viceCaptain;
     }
 }
 
